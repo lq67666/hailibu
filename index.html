@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<script>
+    // var obj1 = {
+    //     name:"刘备",
+    //     sex: "男",
+    //     run: function(){
+    //         console.log("跑");
+            
+    //         var obj2 = new Object();
+    //         obj2.name = "冬子"
+    //     }
+    // }
+    // function createPerson(p_name, p_sex,p_run){
+    //     var tempPerson = new Object();
+    //     tempPerson.name = p_name;
+    //     tempPerson.sex = p_sex;
+    //     tempPerson.run = p_run;
+    //     return tempPerson;
+    // }
+    // function Student(name, sex){
+    //     this.name = name;
+    //     this.sex = sex;
+    //     this.run = function(){
+    //         console.log(this.name + "跑"));
+    //     }
+    // }
+    // var obj5 = new Student("刘备","男");
+    function Person(name,sex){
+        this.name = name;
+        this.sex = sex;
+    }
+    Person.prototype.run = function(){
+        console.log(this.name + "跑");
+    };
+    var obj7 = new Person("刘备","男");
+    console.log(obj7);
+    obj7.run();
+</script>
+</body>
+</html>
