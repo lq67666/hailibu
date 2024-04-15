@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- 基础信息 -->
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <!-- 强制 HTTPS，若不需要可删除，但可能出现问题 -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="force-rendering" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#424242" />
+    <title>MyIndex</title>
+    <!-- jQuery -->
+    <script src="./js/jquery3.5.1.js"></script>
+    <!-- HarmonyOS Sans -->
+    <!-- 本站 CDN 已开启防盗链，非本站域名不可访问，请更改链接为下方内容，否则自定义字体将失效 -->
+    <!-- https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css -->
+    <link rel="stylesheet" href="https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" />
+    <!-- <link rel="stylesheet" href="./css/regular.css" /> -->
+    <!-- 引入样式 -->
+    <!-- <link rel="stylesheet" type="text/css"
+        href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/bootstrap/5.1.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min5.1.0.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./css/loading.css">
+    <link rel="stylesheet" type="text/css" href="./css/animation.css">
+    <link rel="icon" href="./favicon.ico">
+    <link rel="apple-touch-icon" href="./img/icon/apple-touch-icon.png">
+    <link rel="stylesheet" href="./css/iziToast.min1.4.0.css">
+    <script type="text/javascript"
+        src="./js/iziToast.min1.4.0.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/APlayer.min.1.10.1.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/aplayer/1.10.1/APlayer.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script> -->
+    <script src="./js/APlayer.min.1.10.1.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <!-- <script src="./js/Meting.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <!-- IE Out -->
+    <script>
+        if ( /*@cc_on!@*/ false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href =
+            "/upgrade-your-browser/index.html?referrer=" + encodeURIComponent(window.location.href);
+    </script>
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- 51.LA 统计 -->
+    <script src="./js/51LA.js"></script>
+</head>
+
+<body>
+    <!--加载动画-->
+    <div id="loading-box">
+        <div class="loading-left-bg"></div>
+        <div class="loading-right-bg"></div>
+        <div class="spinner-box">
+            <div class="loader">
+                <div class="inner one"></div>
+                <div class="inner two"></div>
+                <div class="inner three"></div>
+            </div>
+            <div class="loading-word">
+                <p class="loading-title" id="loading-title">Index</p>
+                <span id="loading-text">Loading......</span>
+            </div>
+        </div>
+    </div>
+    <section id="section" class="section">
+        <!-- 背景图片 -->
+        <style type="text/css">
+            body{
+              background: url("img/beijing.png") no-repeat center center fixed;
+                          /*兼容浏览器版本*/
+                          -webkit-background-size: cover;
+                          -o-background-size: cover;                
+                          background-size: cover;
+            } /*背景图*/
+       
+            .test {
+              margin-top: 100px;
+            }
+          </style>
+        <!-- 鼠标指针 -->
+        <div id="g-pointer-1"></div>
+        <div id="g-pointer-2"></div>
+        <!-- 主体内容 -->
+        <main id="main" class="main">
+            <!-- 搜索框 -->
+            <div class="close-btn">
+                <span class="fas fa-times"></span>
+            </div>
+            <div class="search-btn">
+                <span class="fas fa-search"></span>
+            </div>
+            <div class="search-data">
+                <input type="text" id="inp" required/>
+                <div class="line"></div>
+                <label>Type to search...</label>
+                <span class="fas fa-search" id="btn"></span>
+            </div>
+ 
+            <script>
+                var oInp = document.getElementById('inp');
+                var oBtn = document.getElementById('btn');
+            
+                oBtn.onclick = function () {
+                    Search();
+                }
+            
+                document.onkeydown = function () {
+                    if (event.keyCode == 13) {
+                        Search();
+                    }
+                }
+            
+                function Search() {
+                    var url = 'https://cn.bing.com/search?q=' + oInp.value;
+                    window.open(url,'_self');
+                }
+            </script>
+
+            <script>//
+                $(".search-btn").click(function(){
+                    $(this).css("display","none");
+                    $(".search-data").fadeIn(500);
+                    $(".close-btn").fadeIn(500);
+                    $(".search-data .line").addClass("active");
+                    setTimeout(function(){
+                        $("input").focus();
+                        $(".search-data label").fadeIn(500);
+                        $(".search-data span").fadeIn(500);
+                    }, 800);
+                });
+                $(".close-btn").click(function(){
+                    $(".search-btn").fadeIn(800);
+                    $(".search-data").fadeOut(500);
+                    $(".close-btn").fadeOut(500);
+                    $(".search-data .line").removeClass("active");
+                    $("input").val("");
+                    $(".search-data label").fadeOut(500);
+                    $(".search-data span").fadeOut(500);
+                });
+            </script>
+            <div class="container" id="container">
+                <div class="row" id="row">
+                    <div class="col left">
+                        <!--基本信息-->
+                        <div class="main-left">
+                            <!--Logo-->
+                        
+                            <!--介绍信息-->
+           
+                    <!--第二屏 Logo-->
+                    <div class="logo cards" style="display: none" id="changemore">
+                        <a class="logo-text" id="logo-text-small">imsyy.top</a>
+                    </div>
+                    <div class="col right">
+                        <div class="main-right">
+                            <!--功能区-->
+                            <div class="row rightone" id="rightone">
+                                <div class="col hitokotos">
+                                    <!--一言-->
+                                    <div class="hitokoto cards" id="hitokoto">
+                                        <!--切换音乐-->
+                                        <div class="open-music fixed-top" id="open-music">
+                                            <i class="fa-solid fa-compact-disc"></i>
+                                            <span>&nbsp;打开音乐播放器</span>
+                                        </div>
+                                        <!--切换音乐结束-->
+                                    <div class="time cards" id="upWeather">
+                                        <div class="timeshow" id="time">
+                                            2000&nbsp;年&nbsp;0&nbsp;月&nbsp;00&nbsp;日&nbsp;<span
+                                                class="weekday">星期一</span><br><span class="time-text">00:00:00</span>
+                                        </div>
+                                        <div class="weather">
+                                            <span id="city_text"> </span>&nbsp;
+                                            <span id="wea_text"> </span>&nbsp;
+                                            <span id="tem_text"> </span>
+                                            <span id="win_text"> </span>
+                                            <span id="win_speed"> </span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <!--音乐-->
+                                    <div class="music" id="music">
+                                        <div class="music-all">
+                                            <div class="music-button">
+                                                <!-- <div id="music-open">音乐列表</div> -->
+                                                <div id="music-close">回到天气</div>
+												
+						
+											
+                                            </div>
+                                            <div class="music-control">
+                                                <i class="fa-solid fa-backward-step" id="last"></i>
+                                                <div id="play">
+                                                    <i class="fa-solid fa-play"></i>
+                                                </div>
+                                                <i class="fa-solid fa-forward-step" id="next"></i>
+                                            </div>
+                                            <div class="music-menu">
+                                                <div class="music-text">
+                                                    <span id="music-name">未播放音乐</span>
+                                                </div>
+                                                <div class="music-volume" style="display: none;">
+                                                    <div id="volume-ico">
+                                                        <i class="fa-solid fa-volume-low"></i>
+                                                    </div>
+                                                    <input type="range" min="0" max="1" step="0.01" id="volume">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+								
+                                <div class="col times">
+                                    <!--时间-->
+                                    <div class="time cards" id="upWeather">
+                                   <div id="lrc"></div>
+                                    </div>
+                                </div>
+								<div class="col times">
+								    <!--时间-->
+							<form id="playlistForm">
+								
+								<input type="text" id="playlistId" name="playlistId" required placeholder="输入歌单 ID" autocomplete="off" style="color: aqua;"><br>
+								<select id="audioSource" name="audioSource" required>
+									<option value="" disabled selected style="color: aqua;">选择音源</option>
+									<option value="netease" style="color: aqua;">网易</option>
+									<option value="tencent" style="color: aqua;">QQ音乐</option>
+								</select><br>
+								<br>
+								<button id="submitButton">提交</button>
+								</div>
+                            </div>
+                            <!--分隔线-->
+                           
+                        <!--Aplayer-->
+                        <div class="box-right"style="width: 100%; height: 400px;margin-left: 250px;">
+                            <div class="aplayer" style="width: 100%; height: 400px;">
+                                <span>音乐播放器加载失败</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- 版权信息 -->
+        <footer id="footer" class="fixed-bottom footer">
+            <div class="power">Copyright&nbsp;©&nbsp;<span id="power-year">2022</span>
+                <script>
+                    document.write(' - ' + (new Date()).getFullYear())
+                </script>
+                <!-- &nbsp;<a href="http://www.hsbupt.love/" id="power-text">南淮花酱|Hs</a>&nbsp;&amp;&nbsp; -->
+                <!-- 以下信息请不要修改哦 -->
+                Made&nbsp;⚙Modified from&nbsp;<a href="/" target="_blank">imsyy</a>
+				🔒<a href="https://beian.miit.gov.cn/">暂未备案</a>
+            </div>
+            <!-- 歌词显示 -->
+            <div id="lrc"/>
+        </footer>
+    </section>
+    <!-- sw.js -->
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register("sw.js");
+            });
+        }
+    </script>
+    <!-- noscript -->
+    <noscript>
+        <div class="noscript fixed-top">请开启 JavaScript</div>
+    </noscript>
+    <script type="text/javascript" src="./js/main.js"></script>
+
+    <script type="text/javascript"
+        src="./js//bootstrap.min.5.1.0.js">
+    </script>
+	<script>
+ $(document).ready(function() {
+            $("#submitButton").click(function(event) {
+                event.preventDefault();
+
+                var id = $("#playlistId").val();
+                var server = $("#audioSource").val();
+				console.log(id)
+				console.log(server)
+/*
+音乐信息
+
+感谢 @武恩赐 提供的 MetingAPI
+https://api.wuenci.com/meting/api/
+
+作者: imsyy
+主页：https://www.imsyy.top/
+GitHub：https://github.com/imsyy/home
+版权所有，请勿删除
+*/
+
+// var server = "netease"; //netease: 网易云音乐; tencent: QQ音乐; kugou: 酷狗音乐; xiami: 虾米; kuwo: 酷我
+var type = "playlist"; //song: 单曲; playlist: 歌单; album: 唱片
+// var id = "8816912997"; //封面 ID / 单曲 ID / 歌单 ID
+
+$.ajax({
+    url: "https://api.injahow.cn/meting/?server=" + server + "&type=" + type + "&id=" + id,
+    type: "GET",
+    dataType: "JSON",
+    success: function (data) {
+        const ap = new APlayer({
+            container: document.querySelector('.aplayer'),
+            order: 'random',
+            preload: 'auto',
+            listMaxHeight: '336px',
+            volume: '0.5',
+            mutex: true,
+            lrcType: 3,
+            audio: data,
+        });
+
+        /* 底栏歌词 */
+        setInterval(function () {
+            $("#lrc").html("<span class='lrc-show'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18'><path fill='none' d='M0 0h24v24H0z'/><path d='M12 13.535V3h8v3h-6v11a4 4 0 1 1-2-3.465z' fill='rgba(255,255,255,1)'/></svg>&nbsp;" + $(".aplayer-lrc-current").text() + "&nbsp;<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18'><path fill='none' d='M0 0h24v24H0z'/><path d='M12 13.535V3h8v3h-6v11a4 4 0 1 1-2-3.465z' fill='rgba(255,255,255,1)'/></svg></span>");
+        }, 500);
+
+        /* 音乐通知及控制 */
+        ap.on('play', function () {
+            music = $(".aplayer-title").text() + $(".aplayer-author").text();
+            iziToast.info({
+                timeout: 4000,
+                icon: "fa-solid fa-circle-play",
+                displayMode: 'replace',
+                message: music
+            });
+            $("#play").html("<i class='fa-solid fa-pause'>");
+            $("#music-name").html($(".aplayer-title").text() + $(".aplayer-author").text());
+            if ($(document).width() >= 990) {
+                $('.power').css("cssText", "display:none");
+                $('#lrc').css("cssText", "display:block !important");
+            };
+            // Notification.requestPermission().then(res => {
+            //     console.log(res)
+            // });
+            // new Notification('音乐通知', {
+            //     body: '正在播放：' + music,
+            //     tag: 1	
+            // });
+        });
+
+        ap.on('pause', function () {
+            $("#play").html("<i class='fa-solid fa-play'>");
+            if ($(document).width() >= 990) {
+                $('#lrc').css("cssText", "display:none !important");
+                $('.power').css("cssText", "display:block");
+            }
+        });
+
+        $("#music").hover(function () {
+            $('.music-text').css("display", "none");
+            $('.music-volume').css("display", "flex");
+        }, function () {
+            $('.music-text').css("display", "block");
+            $('.music-volume').css("display", "none");
+        })
+
+        /* 一言与音乐切换 */
+        $('#open-music').on('click', function () {
+            $('#hitokoto').css("display", "none");
+            $('#music').css("display", "flex");
+        });
+
+        $("#hitokoto").hover(function () {
+            $('#open-music').css("display", "flex");
+        }, function () {
+            $('#open-music').css("display", "none");
+        })
+
+        $('#music-close').on('click', function () {
+            $('#music').css("display", "none");
+            $('#hitokoto').css("display", "flex");
+        });
+
+        /* 上下曲 */
+        $('#play').on('click', function () {
+            ap.toggle();
+            $("#music-name").html($(".aplayer-title").text() + $(".aplayer-author").text());
+        });
+
+        $('#last').on('click', function () {
+            ap.skipBack();
+            ap.play();
+            $("#music-name").html($(".aplayer-title").text() + $(".aplayer-author").text());
+        });
+
+        $('#next').on('click', function () {
+            ap.skipForward();
+            ap.play();
+            $("#music-name").html($(".aplayer-title").text() + $(".aplayer-author").text());
+        });
+
+        window.onkeydown = function (e) {
+            if (e.keyCode == 32) {
+                ap.toggle();
+            }
+        }
+
+        /* 打开音乐列表 */
+        $('#music-open').on('click', function () {
+            if ($(document).width() >= 990) {
+                $('#box').css("display", "block");
+                $('#row').css("display", "none");
+                $('#more').css("cssText", "display:none !important");
+            }
+        });
+
+        //音量调节
+        $("#volume").on('input propertychange touchend', function () {
+            let x = $("#volume").val();
+            ap.volume(x, true);
+            if (x == 0) {
+                $("#volume-ico").html("<i class='fa-solid fa-volume-xmark'></i>");
+            } else if (x > 0 && x <= 0.3) {
+                $("#volume-ico").html("<i class='fa-solid fa-volume-off'></i>");
+            } else if (x > 0.3 && x <= 0.6) {
+                $("#volume-ico").html("<i class='fa-solid fa-volume-low'></i>");
+            } else {
+                $("#volume-ico").html("<i class='fa-solid fa-volume-high'></i>");
+            }
+        });
+    },
+    error: function () {
+        setTimeout(function () {
+            iziToast.info({
+                timeout: 8000,
+                icon: "fa-solid fa-circle-exclamation",
+                displayMode: 'replace',
+                message: '音乐播放器加载失败'
+            });
+        }, 3800);
+    }
+})
+
+            });
+        });
+	</script>
+</body>
+
+</html>
